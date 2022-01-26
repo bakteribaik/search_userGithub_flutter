@@ -18,6 +18,7 @@ class _MyAppState extends State<MyApp> {
   TextEditingController controller = TextEditingController();
   DataService dataService = DataService();
   Github github = Github();
+  bool isValidate = false;
   bool isFetch = false;
 
   @override
@@ -31,15 +32,20 @@ class _MyAppState extends State<MyApp> {
             controller: controller,
             decoration: InputDecoration(
               icon: Icon(Icons.search_outlined),
-              hintText: 'Search',
+              hintText: 'Search username/ID',
               border: InputBorder.none,
+              errorText: isValidate? 'Put username/id' : null
             ),
           ),
           actions: [
             IconButton(onPressed: () async{
-              isFetch = true;
-               github = await dataService.fetchData(controller.text);
+              if (controller.text.isEmpty) {
+                return;
+              } else {
+                isFetch = true;
+                github = await dataService.fetchData(controller.text);
                 setState(() {});
+              }
             }, icon: Icon(Icons.send),
             color: Colors.grey,)
           ],
