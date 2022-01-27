@@ -5,28 +5,35 @@ class profile extends StatelessWidget {
   String name;
    String avatar;
     String url;
+ 
 
   profile({
     required this.name,
     required this.avatar,
     required this.url,
+
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('${name} Profile'),
+        elevation: 1,
+        title: Text(' Profile si ${name}'),
+        backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 50),
-              height: 100,
-              width: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10)
+              ),
+              height: 150,
+              width: (MediaQuery.of(context).size.width),
               child: Image.network(avatar,
-              fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             ),
             Container(
