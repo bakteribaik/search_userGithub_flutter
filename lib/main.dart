@@ -1,4 +1,5 @@
 import 'package:belajar_list_2/model.dart';
+import 'package:belajar_list_2/profile.dart';
 import 'package:belajar_list_2/service.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,12 @@ class _MyAppState extends State<MyApp> {
   Github github = Github();
   bool isValidate = false;
   bool isFetch = false;
+
+  String name = '';
+    String avatar = '';
+      String url = '';
+        String follower = '';
+          String following = '';
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: isFetch ? ListView.builder(
           itemCount: github.items!.length,
-          itemBuilder: (contex, index){
+          itemBuilder: (context, index){
             return ListTile(
               leading: CircleAvatar(
                 child: Image.network('${github.items![index].avatarUrl}'),
@@ -60,7 +67,16 @@ class _MyAppState extends State<MyApp> {
               title: Text('${github.items![index].login}'),
               subtitle: Text('${github.items![index].htmlUrl}'),
               onTap: (){
-                print('${github.items![index].htmlUrl}');
+                name = github.items![index].login.toString();
+                avatar = github.items![index].avatarUrl.toString();
+                url = github.items![index].htmlUrl.toString();
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => profile(
+                    name : name,
+                    avatar : avatar,
+                    url : url,
+                  ))
+                );
               },
             );
         }) : SizedBox(),
